@@ -7,6 +7,24 @@ import messageRouter from './routes/message.route.js';
 import cors from 'cors';
 import {app,server} from './libs/socket.js';
 import path from 'path';
+import axios from 'axios'
+
+//for no rendering in render
+const url = `https://mern-chat-app-2cls.onrender.com/`;
+const interval = 30000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log("website reloded");
+    })
+    .catch((error) => {
+      console.error(`Error : ${error.message}`);
+    });
+}
+
+setInterval(reloadWebsite, interval);
 
 
 //middlewares
@@ -37,7 +55,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
   });
 }
-
 
 
 //server running
